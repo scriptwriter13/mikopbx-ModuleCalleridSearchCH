@@ -1,0 +1,14 @@
+{
+    "name": "mikopbx/calleridsearchch",
+    "description": "CallerID Search for Switzerland",
+    "type": "library",
+    "require": {
+        "php": ">=7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\CalleridSearchCH\\": ""
+        }
+    },
+    "license": "GPL-3.0-or-later"
+}
