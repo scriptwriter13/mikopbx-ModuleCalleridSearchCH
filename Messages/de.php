@@ -1,11 +1,11 @@
 <?php
-// /storage/usbdisk1/mikopbx/custom_modules/CalleridSearchCH/Messages/de.php
 
 return [
-    'BreadcrumbCalleridSearchCH' => 'CallerID Suche Tel.Search.ch Schweiz',
-    'SubHeaderCalleridSearchCH'      => 'Sucht eingehende Rufnummern in Schweizer Datenbanken.',
-    'mo_ModuleCalleridSearchCH' => 'Callerid Tel.Search.ch-Modul',
-    'EnableModule'     => 'Modul aktivieren',
-    'DatabasePath'     => 'Datenbank-Pfad',
-    'Save'             => 'Speichern',
+    'BreadcrumbModuleCalleridSearchCH'         => 'CallerID Suche tel.search.ch',
+    'SubHeaderModuleCalleridSearchCH'          => 'Zeigt den Namen des Anrufers aus dem Schweizer Telefonbuch',
+    'mo_ModuleCalleridSearchCH'                 => 'CallerID Suche tel.search.ch',
+    'module_callerid_search_ch_AboutHeader'    => 'So funktioniert es',
+    'module_callerid_search_ch_AboutText'      => 'Bei jedem eingehenden Anruf sucht das Modul die Nummer im Verzeichnis tel.search.ch und setzt Name, Ort und Strasse als CallerID. Nummern ausserhalb der Schweiz und Nummern ohne Eintrag bleiben unverändert.',
+    'module_callerid_search_ch_ApiKeyHelp'     => 'Der API-Key ist bei moderater Nutzung kostenlos. Ohne Key liefert das Verzeichnis nur den Namen. Key hier anfordern:',
+    'module_callerid_search_ch_ApiKey'         => 'tel.search.ch API-Key',
 ];

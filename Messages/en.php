@@ -1,11 +1,11 @@
 <?php
-// /storage/usbdisk1/mikopbx/custom_modules/CalleridSearchCH/Messages/de.php
 
 return [
-    'BreadcrumbCalleridSearchCH' => 'CallerID earch for Tel.Search.ch Switzerland',
-    'SubHeaderCalleridSearchCH'      => 'Searches for Numbers of incoming call in swiss directory.',
-    'mo_ModuleCalleridSearchCH' => 'Callerid Tel.Search.ch-Modul',
-    'EnableModule'     => 'Modul activation',
-    'DatabasePath'     => 'Database-path',
-    'Save'             => 'Save',
+    'BreadcrumbModuleCalleridSearchCH'         => 'CallerID lookup tel.search.ch',
+    'SubHeaderModuleCalleridSearchCH'          => 'Shows the caller name from the Swiss phone directory',
+    'mo_ModuleCalleridSearchCH'                 => 'CallerID lookup tel.search.ch',
+    'module_callerid_search_ch_AboutHeader'    => 'How it works',
+    'module_callerid_search_ch_AboutText'      => 'On every incoming call the module looks the number up in the tel.search.ch directory and puts the name, city and street into the CallerID. Numbers outside Switzerland and numbers missing from the directory are left untouched.',
+    'module_callerid_search_ch_ApiKeyHelp'     => 'The API key is free for moderate use. Without a key the directory returns the name only. Get a key here:',
+    'module_callerid_search_ch_ApiKey'         => 'tel.search.ch API key',
 ];

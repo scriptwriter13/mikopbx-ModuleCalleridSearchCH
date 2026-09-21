@@ -3,11 +3,11 @@
     "description": "CallerID Search for Switzerland",
     "type": "library",
     "require": {
-        "php": ">=7.4"
+        "php": ">=8.3"
     },
     "autoload": {
         "psr-4": {
-            "Modules\\CalleridSearchCH\\": ""
+            "Modules\\ModuleCalleridSearchCH\\": ""
         }
     },
     "license": "GPL-3.0-or-later"

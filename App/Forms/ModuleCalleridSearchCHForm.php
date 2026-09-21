@@ -16,13 +16,16 @@
 
 declare(strict_types=1);
 
-namespace Modules\ModuleCalleridSearchCH\Setup;
+namespace Modules\ModuleCalleridSearchCH\App\Forms;
 
-use MikoPBX\Modules\Setup\PbxExtensionSetupBase;
+use MikoPBX\AdminCabinet\Forms\BaseForm;
+use Phalcon\Forms\Element\Text;
 
-/**
- * The base class creates the settings table from Models/ and makes agi-bin executable.
- */
-class PbxExtensionSetup extends PbxExtensionSetupBase
+class ModuleCalleridSearchCHForm extends BaseForm
 {
+    public function initialize($entity = null, $options = null): void
+    {
+        parent::initialize($entity, $options);
+        $this->add(new Text('api_key', ['autocomplete' => 'off']));
+    }
 }
