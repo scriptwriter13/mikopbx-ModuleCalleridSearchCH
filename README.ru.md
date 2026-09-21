@@ -8,6 +8,7 @@
 поэтому имя, переданное провайдером, не теряется.
 
 Автор модуля — scriptwriter13, 2026 год, лицензия GPL V3.
+[deutsche Version](README.md)
 [English version](README.md)
 
 # Установка
