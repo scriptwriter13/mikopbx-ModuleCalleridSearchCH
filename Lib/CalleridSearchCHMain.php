@@ -209,8 +209,6 @@ class CalleridSearchCHMain
      */
     private static function getApiKey(): string
     {
-        $apiKey = trim((string)ModuleCalleridSearchCH::findFirst()?->api_key);
-
-        return $apiKey !== '' ? $apiKey : trim((string)getenv('TEL_SEARCH_KEY'));
+        return trim((string)ModuleCalleridSearchCH::findFirst()?->api_key);
     }
 }

@@ -28,9 +28,6 @@ Requires MikoPBX 2025.1.1 or newer.
 Get a key at https://tel.search.ch/api/getkey. It is free for moderate use.
 Without a key the directory returns the name only, without city and street.
 
-Installations made before the settings page existed keep working: when the key field is empty,
-the module reads the `TEL_SEARCH_KEY` environment variable.
-
 # Privacy
 
 The caller number of every incoming Swiss call is sent to tel.search.ch over HTTPS.
