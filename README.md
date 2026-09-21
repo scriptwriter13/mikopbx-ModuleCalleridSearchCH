@@ -8,6 +8,7 @@ Numbers outside Switzerland and numbers missing from the directory are left unto
 so a name sent by your provider is not lost.
 
 Module was built by scriptwriter13 in 2026 and released by GPL V3.
+[deutsche Version](README.de.md)
 [Русская версия](README.ru.md)
 
 # Install
