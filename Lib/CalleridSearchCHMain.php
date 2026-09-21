@@ -72,7 +72,7 @@ class CalleridSearchCHMain
         // Several entries share one number: they have different addresses, so only the names are shown.
         $single = $entries->length === 1;
         $names = [];
-        $location = '';
+        $locations = [];
         foreach ($entries as $entry) {
             $value = static fn(string $query): string => trim((string)$xpath->evaluate("string($query)", $entry));
 
@@ -87,19 +87,30 @@ class CalleridSearchCHMain
             if ($name !== '') {
                 $names[] = $name;
             }
-            if ($single) {
-                $location = $value('tel:city');
-                $street = trim($value('tel:street') . ' ' . $value('tel:streetno'));
-                if ($street !== '') {
-                    $location = $location === '' ? $street : $location . ', ' . $street;
-                }
+
+            $loc = $value('tel:city');
+            $street = trim($value('tel:street') . ' ' . $value('tel:streetno'));
+            if ($street !== '') {
+                $loc = $loc === '' ? $street : $loc . ', ' . $street;
             }
+            $locations[] = $loc;
         }
         if ($names === []) {
             return null;
         }
 
         $result = implode('/', array_unique($names));
+
+        $location = '';
+        $nonEmptyLocations = array_filter($locations, fn($l) => $l !== '');
+        $uniqueLocations = array_unique($nonEmptyLocations);
+
+        if ($single && count($uniqueLocations) > 0) {
+            $location = reset($uniqueLocations);
+        } elseif (!$single && count($uniqueLocations) === 1 && count($nonEmptyLocations) === $entries->length) {
+            $location = reset($uniqueLocations);
+        }
+
         if ($location !== '') {
             $result .= ' ' . $location;
         }
