@@ -16,13 +16,32 @@
 
 declare(strict_types=1);
 
-namespace Modules\ModuleCalleridSearchCH\Setup;
+namespace Modules\ModuleCalleridSearchCH\Models;
 
-use MikoPBX\Modules\Setup\PbxExtensionSetupBase;
+use MikoPBX\Modules\Models\ModulesModelsBase;
 
 /**
- * The base class creates the settings table from Models/ and makes agi-bin executable.
+ * Module settings, a single row.
  */
-class PbxExtensionSetup extends PbxExtensionSetupBase
+class ModuleCalleridSearchCH extends ModulesModelsBase
 {
+    /**
+     * @Primary
+     * @Identity
+     * @Column(type="integer", nullable=false)
+     */
+    public $id;
+
+    /**
+     * tel.search.ch API key
+     *
+     * @Column(type="string", nullable=true)
+     */
+    public ?string $api_key = '';
+
+    public function initialize(): void
+    {
+        $this->setSource('m_ModuleCalleridSearchCH');
+        parent::initialize();
+    }
 }
