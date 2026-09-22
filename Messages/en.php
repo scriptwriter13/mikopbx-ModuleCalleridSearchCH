@@ -10,5 +10,5 @@ return [
     'module_callerid_search_ch_ApiKey'         => 'tel.search.ch API key',
     'module_callerid_search_ch_DropCallcenter' => 'Callcenter drop',
     'module_callerid_search_ch_DropAnonymousCalls' => 'Anonymous call drop',
-
+    'module_callerid_search_ch_Callcontrol' => 'Active call flow intervention (risky)',
 ];
