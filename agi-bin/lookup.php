@@ -27,13 +27,14 @@ require_once 'Globals.php';
 $agi = new AGI();
 $number = $argv[1] ?? '';
 
+
 try {
     // 1. Anonyme Anrufe prüfen und ggf. abwürgen
     if (CalleridSearchCHMain::shouldDropAnonymousCalls() && CalleridSearchCHMain::isAnonymousCall($number, $agi)) {
         $agi->verbose('CalleridSearchCH: Anonymous call detected, hanging up call.');
         $agi->set_variable('CALLERID(name)', 'Anonym');
-        $agi->set_variable('CDR(disposition)', 'FAILED');
         $agi->set_variable('CDR(userfield)', 'Rejected: Anonymous');
+        $agi->exec('Busy', '5');
         $agi->hangup();
         exit;
     }
@@ -45,8 +46,8 @@ try {
    // 3. Callcenter-Drop prüfen
    if (CalleridSearchCHMain::shouldDropCallcenter() && CalleridSearchCHMain::isLastCallcenter()) {
         $agi->verbose('CalleridSearchCH: Callcenter detected, dropping call.');
-        $agi->set_variable('CDR(disposition)', 'FAILED');
         $agi->set_variable('CDR(userfield)', 'Rejected: Callcenter');
+        $agi->exec('Busy', '5');
         $agi->hangup();
         exit;
     }
