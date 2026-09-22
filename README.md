@@ -29,6 +29,8 @@ Requires MikoPBX 2025.1.1 or newer.
 Get a key at https://tel.search.ch/api/getkey. It is free for moderate use.
 Without a key the directory returns the name only, without city and street.
 
+On the module page, you can select via checkboxes whether anonymous calls or calls in the call center category should be rejected.
+
 # Privacy
 
 The caller number of every incoming Swiss call is sent to tel.search.ch over HTTPS.

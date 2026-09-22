@@ -138,14 +138,27 @@ class CalleridSearchCHMain
         return $message === '' ? null : $message;
     }
 
+
+    /** @var bool Tracks whether the last lookup identified a Call Center */
     private static bool $lastCallcenter = false;
 
+    /**
+     * Returns whether the last lookup identified a Call Center.
+     *
+     * @return bool true when the last entity was identified as a call center
+     */
     public static function isLastCallcenter(): bool
     {
         return self::$lastCallcenter;
     }
 
-
+    /**
+     * Calls with 2 or fewer digits are treated as anonymous. Falls back to AGI channel data if empty.
+     *
+     * @param string|null $number Raw caller number string
+     * @param \MikoPBX\Core\Asterisk\AGI|null $agi Active AGI instance for channel fallback
+     * @return bool true when the caller ID has 2 or fewer digits
+     */
     public static function isAnonymousCall(?string $number = null, ?\MikoPBX\Core\Asterisk\AGI $agi = null): bool
     {
         $numStr = trim($number ?? '');
@@ -195,6 +208,12 @@ class CalleridSearchCHMain
         return self::parseCallerName($xml);
     }
 
+    /**
+     * Checks whether the XML feed identifies the entity as a Call Center.
+     *
+     * @param string $xml Raw XML response payload
+     * @return bool true when the category matches "call center"
+     */
     private static function isCallcenterXml(string $xml): bool
     {
         $xpath = self::xpath($xml);
@@ -258,11 +277,21 @@ class CalleridSearchCHMain
         return trim((string)ModuleCalleridSearchCH::findFirst()?->api_key);
     }
 
+    /**
+     * Checks whether call center dropping is enabled in the module settings.
+     *
+     * @return bool true when dropCallcenter is enabled ('1')
+     */
     public static function shouldDropCallcenter(): bool
     {
         return ModuleCalleridSearchCH::findFirst()?->dropCallcenter === '1';
     }
 
+    /**
+     * Checks whether anonymous call dropping is enabled in the module settings.
+     *
+     * @return bool true when dropAnonymousCalls is enabled ('1')
+     */
     public static function shouldDropAnonymousCalls(): bool
     {
         return ModuleCalleridSearchCH::findFirst()?->dropAnonymousCalls === '1';

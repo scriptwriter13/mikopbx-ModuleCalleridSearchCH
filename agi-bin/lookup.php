@@ -32,6 +32,8 @@ try {
     if (CalleridSearchCHMain::shouldDropAnonymousCalls() && CalleridSearchCHMain::isAnonymousCall($number, $agi)) {
         $agi->verbose('CalleridSearchCH: Anonymous call detected, hanging up call.');
         $agi->set_variable('CALLERID(name)', 'Anonym');
+        $agi->set_variable('CDR(disposition)', 'FAILED');
+        $agi->set_variable('CDR(userfield)', 'Rejected: Anonymous');
         $agi->hangup();
         exit;
     }
@@ -42,7 +44,9 @@ try {
     }
    // 3. Callcenter-Drop prüfen
    if (CalleridSearchCHMain::shouldDropCallcenter() && CalleridSearchCHMain::isLastCallcenter()) {
-        $agi->verbose('CalleridSearchCH: Call Center detected ("Call Center"), hanging up call.');
+        $agi->verbose('CalleridSearchCH: Callcenter detected, dropping call.');
+        $agi->set_variable('CDR(disposition)', 'FAILED');
+        $agi->set_variable('CDR(userfield)', 'Rejected: Callcenter');
         $agi->hangup();
         exit;
     }
