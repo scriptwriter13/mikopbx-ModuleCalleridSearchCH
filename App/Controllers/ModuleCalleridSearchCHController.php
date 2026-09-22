@@ -57,6 +57,15 @@ class ModuleCalleridSearchCHController extends BaseController
         }
         $settings = ModuleCalleridSearchCH::findFirst() ?? new ModuleCalleridSearchCH();
         $settings->api_key = trim((string)$this->request->getPost('api_key', 'string', ''));
+
+$valCc = $this->request->getPost('dropCallcenter');
+$settings->dropCallcenter = (!empty($valCc) && $valCc !== 'false' && $valCc !== '0') ? '1' : '0';
+
+$valAnon = $this->request->getPost('dropAnonymousCalls');
+$settings->dropAnonymousCalls = (!empty($valAnon) && $valAnon !== 'false' && $valAnon !== '0') ? '1' : '0';
+
+//        $settings->dropCallcenter = $this->request->hasPost('dropCallcenter') ? '1' : '0';
+//        $settings->dropAnonymousCalls = $this->request->hasPost('dropAnonymousCalls') ? '1' : '0';
         $this->saveEntity($settings);
     }
 }

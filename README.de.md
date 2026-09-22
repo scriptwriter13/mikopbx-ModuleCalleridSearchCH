@@ -24,6 +24,8 @@ Erfordert MikoPBX 2025.1.1 oder neuer.
 Einen Schlüssel erhältst du unter https://tel.search.ch/api/getkey. Bei moderater Nutzung ist er kostenlos.
 Ohne Schlüssel liefert das Verzeichnis nur den Namen, ohne Ort und Strasse.
 
+Auf der Modulseite es möglich, die Häkchen auszuwählen, ob Anonyme Anrufe oder Calls der Kategorie Callcenter abgewiesen werden sollen.
+
 # Datenschutz
 
 Die Anrufernummer jedes eingehenden Schweizer Anrufs wird per HTTPS an tel.search.ch gesendet.

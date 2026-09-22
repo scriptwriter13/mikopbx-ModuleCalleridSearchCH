@@ -8,4 +8,6 @@ return [
     'module_callerid_search_ch_AboutText'      => 'При каждом входящем звонке модуль ищет номер в справочнике tel.search.ch и подставляет в CallerID имя, город и улицу. Номера не из Швейцарии и номера, которых нет в справочнике, остаются без изменений.',
     'module_callerid_search_ch_ApiKeyHelp'     => 'Ключ API бесплатен при умеренном использовании. Без ключа справочник возвращает только имя. Получить ключ:',
     'module_callerid_search_ch_ApiKey'         => 'Ключ API tel.search.ch',
+    'module_callerid_search_ch_DropCallcenter' => 'Отклонять / помечать колл-центры / телемаркетинг',
+    'module_callerid_search_ch_DropAnonymousCalls' => 'Отклонять / помечать анонимные звонки',
 ];
