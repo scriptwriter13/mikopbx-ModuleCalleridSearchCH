@@ -25,11 +25,29 @@ use Modules\ModuleCalleridSearchCH\Lib\CalleridSearchCHMain;
 require_once 'Globals.php';
 
 $agi = new AGI();
+$number = $argv[1] ?? '';
+
 try {
-    $name = CalleridSearchCHMain::lookup($argv[1] ?? '');
+    // 1. Anonyme Anrufe prüfen und ggf. abwürgen
+    if (CalleridSearchCHMain::shouldDropAnonymousCalls() && CalleridSearchCHMain::isAnonymousCall($number, $agi)) {
+        $agi->verbose('CalleridSearchCH: Anonymous call detected, hanging up call.');
+        $agi->set_variable('CALLERID(name)', 'Anonym');
+        $agi->hangup();
+        exit;
+    }
+    // 2. Normaler Lookup für benannte Anrufe
+    $name = CalleridSearchCHMain::lookup($number);
     if ($name !== null) {
         $agi->set_variable('CALLERID(name)', $name);
     }
+   // 3. Callcenter-Drop prüfen
+   if (CalleridSearchCHMain::shouldDropCallcenter() && CalleridSearchCHMain::isLastCallcenter()) {
+        $agi->verbose('CalleridSearchCH: Call Center detected ("Call Center"), hanging up call.');
+        $agi->hangup();
+        exit;
+    }
+
+
 } catch (Throwable $e) {
     // Never break the call: the reason goes to the Asterisk log, the CallerID stays as it came.
     $agi->verbose('CalleridSearchCH: ' . $e->getMessage());

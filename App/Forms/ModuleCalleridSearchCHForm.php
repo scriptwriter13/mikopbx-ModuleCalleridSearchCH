@@ -20,6 +20,7 @@ namespace Modules\ModuleCalleridSearchCH\App\Forms;
 
 use MikoPBX\AdminCabinet\Forms\BaseForm;
 use Phalcon\Forms\Element\Text;
+//use Phalcon\Forms\Element\Check;
 
 class ModuleCalleridSearchCHForm extends BaseForm
 {
@@ -27,5 +28,9 @@ class ModuleCalleridSearchCHForm extends BaseForm
     {
         parent::initialize($entity, $options);
         $this->add(new Text('api_key', ['autocomplete' => 'off']));
+
+        $this->addCheckBox('dropCallcenter', intval($entity?->dropCallcenter) === 1);
+        $this->addCheckBox('dropAnonymousCalls', intval($entity?->dropAnonymousCalls) === 1);
+
     }
 }

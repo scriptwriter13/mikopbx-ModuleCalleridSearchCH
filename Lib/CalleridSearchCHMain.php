@@ -138,12 +138,42 @@ class CalleridSearchCHMain
         return $message === '' ? null : $message;
     }
 
+    private static bool $lastCallcenter = false;
+
+    public static function isLastCallcenter(): bool
+    {
+        return self::$lastCallcenter;
+    }
+
+
+    public static function isAnonymousCall(?string $number = null, ?\MikoPBX\Core\Asterisk\AGI $agi = null): bool
+    {
+        $numStr = trim($number ?? '');
+
+        if ($numStr === '' && $agi !== null) {
+            try {
+                $res = $agi->get_variable('CALLERID(num)');
+                if (is_array($res) && isset($res['data'])) {
+                    $numStr = trim((string)$res['data']);
+                }
+            } catch (\Throwable) {
+                // CLI ignorieren
+            }
+        }
+
+        $digits = preg_replace('/[^\d]/', '', $numStr);
+        
+        // Mehr als 2 Stellen = nicht anonym (false), 2 oder weniger Stellen = anonym (true)
+        return strlen($digits) <= 2;
+    }
+
     /**
      * @return string|null null when there is nothing to show and CallerID must stay untouched
      * @throws RuntimeException when the directory cannot be reached or rejects the key
      */
     public static function lookup(string $number): ?string
-    {
+    {  
+	self::$lastCallcenter = false; 
         $national = self::normalizeNumber($number);
         if ($national === null) {
             return null;
@@ -160,7 +190,23 @@ class CalleridSearchCHMain
             throw new RuntimeException($error);
         }
 
+	self::$lastCallcenter = self::isCallcenterXml($xml);
+
         return self::parseCallerName($xml);
+    }
+
+    private static function isCallcenterXml(string $xml): bool
+    {
+        $xpath = self::xpath($xml);
+        if ($xpath === null) {
+            return false;
+        }
+        foreach ($xpath->query('//tel:category') as $node) {
+	   if (stripos(trim((string)$node->textContent), 'call center') !== false) {
+                return true;
+            }    
+        }
+        return false;
     }
 
     /**
@@ -211,4 +257,16 @@ class CalleridSearchCHMain
     {
         return trim((string)ModuleCalleridSearchCH::findFirst()?->api_key);
     }
+
+    public static function shouldDropCallcenter(): bool
+    {
+        return ModuleCalleridSearchCH::findFirst()?->dropCallcenter === '1';
+    }
+
+    public static function shouldDropAnonymousCalls(): bool
+    {
+        return ModuleCalleridSearchCH::findFirst()?->dropAnonymousCalls === '1';
+    }
+
+
 }

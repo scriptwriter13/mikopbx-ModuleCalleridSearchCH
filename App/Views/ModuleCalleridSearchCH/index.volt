@@ -13,5 +13,21 @@
         {{ form.render('api_key') }}
     </div>
 
+<div class="inline field">
+        <div class="ui checkbox">
+            {{ form.render('dropCallcenter') }}
+            <label>{{ t._('module_callerid_search_ch_DropCallcenter') }}</label>
+        </div>
+    </div>
+
+    <div class="inline field">
+        <div class="ui checkbox">
+            {{ form.render('dropAnonymousCalls') }}
+            <label>{{ t._('module_callerid_search_ch_DropAnonymousCalls') }}</label>
+        </div>
+    </div>
+
+
+
     {{ partial("partials/submitbutton", ['indexurl': '']) }}
 </form>

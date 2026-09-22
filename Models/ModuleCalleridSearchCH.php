@@ -39,6 +39,17 @@ class ModuleCalleridSearchCH extends ModulesModelsBase
      */
     public ?string $api_key = '';
 
+
+    /**
+     * @Column(type="integer", default="0", nullable=true)
+     */
+    public ?string $dropCallcenter = '0';
+
+    /**
+     * @Column(type="integer", default="0", nullable=true)
+     */
+    public ?string $dropAnonymousCalls = '0';
+
     public function initialize(): void
     {
         $this->setSource('m_ModuleCalleridSearchCH');
