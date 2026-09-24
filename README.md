@@ -13,9 +13,9 @@ Module was built by scriptwriter13 in 2026 and released by GPL V3.
 
 # Install
 
-**Upgrading from 1.0:** remove the old `CalleridSearchCH` module first. The module id gained the
-`Module` prefix required by MikoPBX, so an install over 1.0 leaves both modules enabled, with two
-lookups on every incoming call and the old script still running.
+**Upgrading from older version:** remove the old `CalleridSearchCH` module first. The module id gained the
+`Module` prefix required by MikoPBX, so an install over the old one leaves both modules enabled, with one 
+lookup per enabled module on every incoming call and the old script still running.
 
 1. Build the module archive (see below) or take it from the releases page.
 2. In the MikoPBX admin panel open Modules → Installed → Upload new module and choose the zip file.
