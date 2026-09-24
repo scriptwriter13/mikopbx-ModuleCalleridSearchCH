@@ -30,7 +30,7 @@ require_once 'Globals.php';
 $agi = new AGI();
 $number = $argv[1] ?? '';
 
-// Hilfsfunktion zum sicheren Abspielen der konfigurierten Ansage (mit Fallback auf Busy)
+// Hilfsfunktion zum sicheren Abspielen der konfigurierten Ansage 
 $executeRejection = function(AGI $agi): void {
     $soundPlayed = false;
     try {
@@ -58,9 +58,6 @@ $executeRejection = function(AGI $agi): void {
         $agi->verbose('CalleridSearchCH: Sound playback error: ' . $e->getMessage());
     }
 
-    if (!$soundPlayed) {
-        $agi->exec('Busy', '5');
-    }
 };
 
 try {
@@ -71,7 +68,7 @@ try {
         $agi->set_variable('CDR(userfield)', 'Rejected: Anonymous');
         $executeRejection($agi);
         $agi->exec('Busy', '5');
-        ;$agi->hangup();
+        $agi->hangup();
         exit;
     }
     // 2. Normaler Lookup für benannte Anrufe
