@@ -182,8 +182,17 @@ class CalleridSearchCHMain
         return strlen($digits) <= 2;
     }
 
-
-public static function getAvailableCustomSounds(): array {
+    /**
+     * Retrieves all available custom sound files from the system database
+     * and maps them into an associative array for use in form dropdowns.
+     * 
+     * Filters files by category CATEGORY_CUSTOM, extracts the base filename 
+     * as the option key, and resolves a human-readable label (using name, 
+     * description, or falling back to the filename).
+     * 
+     * @return array Associative array of [filename => display_label]
+     */
+     public static function getAvailableCustomSounds(): array {
         $options = ['' => '-- Keine Ansage (Standard: Busy) --'];
         
         try {

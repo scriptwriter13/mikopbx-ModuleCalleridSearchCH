@@ -38,7 +38,7 @@ class ModuleCalleridSearchCHForm extends BaseForm
         $this->addCheckBox('dropCallcenter', intval($entity?->dropCallcenter) === 1);
         $this->addCheckBox('dropAnonymousCalls', intval($entity?->dropAnonymousCalls) === 1);
 
-$sounds = CalleridSearchCHMain::getAvailableCustomSounds();
+        $sounds = CalleridSearchCHMain::getAvailableCustomSounds();
         $soundSelect = new Select('rejected_sound_path', $sounds, [
             'class' => 'form-control select2'
         ]);
