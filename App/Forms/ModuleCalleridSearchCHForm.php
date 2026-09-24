@@ -22,6 +22,12 @@ use MikoPBX\AdminCabinet\Forms\BaseForm;
 use Phalcon\Forms\Element\Text;
 //use Phalcon\Forms\Element\Check;
 
+use Phalcon\Forms\Element\Select;
+
+require_once __DIR__ . '/../../Lib/CalleridSearchCHMain.php';
+use Modules\ModuleCalleridSearchCH\Lib\CalleridSearchCHMain;
+
+
 class ModuleCalleridSearchCHForm extends BaseForm
 {
     public function initialize($entity = null, $options = null): void
@@ -31,6 +37,13 @@ class ModuleCalleridSearchCHForm extends BaseForm
 
         $this->addCheckBox('dropCallcenter', intval($entity?->dropCallcenter) === 1);
         $this->addCheckBox('dropAnonymousCalls', intval($entity?->dropAnonymousCalls) === 1);
+
+        $sounds = CalleridSearchCHMain::getAvailableCustomSounds();
+        $soundSelect = new Select('rejected_sound_path', $sounds, [
+            'class' => 'form-control select2'
+        ]);
+        $soundSelect->setLabel('Ansage bei Callcenter-Abweisung');
+        $this->add($soundSelect);
 
     }
 }

@@ -23,6 +23,8 @@ use DOMDocument;
 use DOMXPath;
 use Modules\ModuleCalleridSearchCH\Models\ModuleCalleridSearchCH;
 use RuntimeException;
+use MikoPBX\Common\Models\SoundFiles;
+
 
 /**
  * Caller name lookup in the tel.search.ch directory.
@@ -179,6 +181,56 @@ class CalleridSearchCHMain
         // Mehr als 2 Stellen = nicht anonym (false), 2 oder weniger Stellen = anonym (true)
         return strlen($digits) <= 2;
     }
+
+    /**
+     * Retrieves all available custom sound files from the system database
+     * and maps them into an associative array for use in form dropdowns.
+     * 
+     * Filters files by category CATEGORY_CUSTOM, extracts the base filename 
+     * as the option key, and resolves a human-readable label (using name, 
+     * description, or falling back to the filename).
+     * 
+     * @return array Associative array of [filename => display_label]
+     */
+     public static function getAvailableCustomSounds(): array {
+        $options = ['' => '-- Keine Ansage (Standard: Busy) --'];
+        
+        try {
+            if (class_exists(SoundFiles::class)) {
+                $sounds = SoundFiles::find([
+                    'category = :cat:',
+                    'bind' => ['cat' => SoundFiles::CATEGORY_CUSTOM]
+                ]);
+                
+                foreach ($sounds as $sound) {
+                    $path = trim($sound->path ?? '');
+                    if (empty($path)) {
+                        continue;
+                    }
+                    
+                    // Den reinen Dateinamen als sauberen Key für das Formular ermitteln (z.B. "test21")
+                    $base = pathinfo($path, PATHINFO_FILENAME);
+                    if (empty($base)) {
+                        continue;
+                    }
+                    
+                    // Sprechenden Namen oder Beschreibung bevorzugen, sonst Dateiname als Fallback
+                    $label = !empty($sound->name) 
+                        ? $sound->name 
+                        : (!empty($sound->description) ? $sound->description : $base);
+                    
+                    // Key ist jetzt der kompakte Name (z.B. 'test21'), Value ist der schöne Name für den Admin
+                    $options[$base] = $label;
+                }
+            }
+        } catch (\Throwable $e) {
+            // Fängt Ausnahmen ab
+        }
+        
+        return $options;
+    }
+
+
 
     /**
      * @return string|null null when there is nothing to show and CallerID must stay untouched

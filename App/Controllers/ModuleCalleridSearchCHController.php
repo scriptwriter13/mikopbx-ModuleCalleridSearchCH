@@ -64,6 +64,8 @@ class ModuleCalleridSearchCHController extends BaseController
         $valAnon = $this->request->getPost('dropAnonymousCalls');
         $settings->dropAnonymousCalls = (!empty($valAnon) && $valAnon !== 'false' && $valAnon !== '0') ? '1' : '0';
 
+        $settings->rejected_sound_path = trim((string)$this->request->getPost('rejected_sound_path', 'string', ''));
+
         $this->saveEntity($settings);
     }
 }

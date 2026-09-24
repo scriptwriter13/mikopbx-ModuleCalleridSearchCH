@@ -26,7 +26,10 @@
             <label>{{ t._('module_callerid_search_ch_DropAnonymousCalls') }}</label>
         </div>
     </div>
-
+<div class="field">
+    <label>{{ form.getLabel('rejected_sound_path') }}</label>
+    {{ form.render('rejected_sound_path') }}
+</div>
 
 
     {{ partial("partials/submitbutton", ['indexurl': '']) }}

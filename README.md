@@ -21,6 +21,10 @@ lookups on every incoming call and the old script still running.
 2. In the MikoPBX admin panel open Modules → Installed → Upload new module and choose the zip file.
 3. Enable the module.
 4. Open the module page, paste your API key and press Save.
+5. If desired, you can also modify the call flow. Only make these settings if you are certain of 
+what you are doing. Here, it is possible to reject anonymous calls or calls categorized as 
+call center traffic. It is also optionally possible to play a custom-recorded announcement before 
+the call is dropped.
 
 Requires MikoPBX 2025.1.1 or newer.
 
@@ -29,7 +33,6 @@ Requires MikoPBX 2025.1.1 or newer.
 Get a key at https://tel.search.ch/api/getkey. It is free for moderate use.
 Without a key the directory returns the name only, without city and street.
 
-On the module page, you can select via checkboxes whether anonymous calls or calls in the call center category should be rejected.
 
 # Privacy
 
