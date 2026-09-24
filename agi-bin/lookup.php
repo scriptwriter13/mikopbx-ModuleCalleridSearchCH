@@ -22,11 +22,46 @@ declare(strict_types=1);
 use MikoPBX\Core\Asterisk\AGI;
 use Modules\ModuleCalleridSearchCH\Lib\CalleridSearchCHMain;
 
+use Modules\ModuleCalleridSearchCH\Models\ModuleCalleridSearchCH;
+use MikoPBX\Common\Models\SoundFiles;
+
 require_once 'Globals.php';
 
 $agi = new AGI();
 $number = $argv[1] ?? '';
 
+// Hilfsfunktion zum sicheren Abspielen der konfigurierten Ansage (mit Fallback auf Busy)
+$executeRejection = function(AGI $agi): void {
+    $soundPlayed = false;
+    try {
+        $settings = ModuleCalleridSearchCH::findFirst();
+        $savedSoundKey = $settings ? trim($settings->rejected_sound_path ?? '') : '';
+
+        if (!empty($savedSoundKey)) {
+            $soundRecord = SoundFiles::findFirst([
+                "path LIKE :key: AND category = :cat:",
+                "bind" => [
+                    "key" => "%{$savedSoundKey}%",
+                    "cat" => SoundFiles::CATEGORY_CUSTOM
+                ]
+            ]);
+
+            if ($soundRecord && !empty($soundRecord->path)) {
+                $resolvedPath = SoundFiles::resolveAsteriskAudioPath($soundRecord->path);
+                if (!empty($resolvedPath)) {
+                    $agi->exec('Playback', $resolvedPath);
+                    $soundPlayed = true;
+                }
+            }
+        }
+    } catch (\Throwable $e) {
+        $agi->verbose('CalleridSearchCH: Sound playback error: ' . $e->getMessage());
+    }
+
+    if (!$soundPlayed) {
+        $agi->exec('Busy', '5');
+    }
+};
 
 try {
     // 1. Anonyme Anrufe prüfen und ggf. abwürgen
@@ -34,8 +69,9 @@ try {
         $agi->verbose('CalleridSearchCH: Anonymous call detected, hanging up call.');
         $agi->set_variable('CALLERID(name)', 'Anonym');
         $agi->set_variable('CDR(userfield)', 'Rejected: Anonymous');
+        $executeRejection($agi);
         $agi->exec('Busy', '5');
-        $agi->hangup();
+        ;$agi->hangup();
         exit;
     }
     // 2. Normaler Lookup für benannte Anrufe
@@ -47,6 +83,7 @@ try {
    if (CalleridSearchCHMain::shouldDropCallcenter() && CalleridSearchCHMain::isLastCallcenter()) {
         $agi->verbose('CalleridSearchCH: Callcenter detected, dropping call.');
         $agi->set_variable('CDR(userfield)', 'Rejected: Callcenter');
+        $executeRejection($agi);
         $agi->exec('Busy', '5');
         $agi->hangup();
         exit;

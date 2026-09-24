@@ -50,6 +50,11 @@ class ModuleCalleridSearchCH extends ModulesModelsBase
      */
     public ?string $dropAnonymousCalls = '0';
 
+    /**
+     * @Column(type="string", nullable=true)
+     */
+    public ?string $rejected_sound_path = '';
+
     public function initialize(): void
     {
         $this->setSource('m_ModuleCalleridSearchCH');

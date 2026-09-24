@@ -16,6 +16,8 @@ Das Modul wurde 2026 von scriptwriter13 erstellt und unter der GPL V3 veröffent
 2. Öffne im MikoPBX-Admin-Panel **Module** → **Installiert** → **Neues Modul hochladen** und wähle die ZIP-Datei aus.
 3. Aktiviere das Modul.
 4. Öffne die Modulseite, füge deinen API-Key ein und klicke auf Speichern.
+5. Falls gewünscht, kann auch ein Eingriff in den Callfluss vorgenommen werden. Nehmen Sie diese Einstellungen nur vor, wenn Sie sich sicher sind, was Sie tun. Hier ist es möglich, anonyme Calls abzuweisen, oder Calls der Kategorie Callcenter. Ebenfalls ist es möglich eine selbstaufgenommene Ansage vor dem Auslösen des Calls vorzuschalten, falls gewünscht.
+
 
 Erfordert MikoPBX 2025.1.1 oder neuer.
 
@@ -24,7 +26,6 @@ Erfordert MikoPBX 2025.1.1 oder neuer.
 Einen Schlüssel erhältst du unter https://tel.search.ch/api/getkey. Bei moderater Nutzung ist er kostenlos.
 Ohne Schlüssel liefert das Verzeichnis nur den Namen, ohne Ort und Strasse.
 
-Auf der Modulseite es möglich, die Häkchen auszuwählen, ob Anonyme Anrufe oder Calls der Kategorie Callcenter abgewiesen werden sollen.
 
 # Datenschutz
 
