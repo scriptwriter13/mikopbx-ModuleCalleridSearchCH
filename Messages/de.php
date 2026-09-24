@@ -11,4 +11,5 @@ return [
     'module_callerid_search_ch_DropCallcenter' => 'Callcenter / Telemarketing abweisen / markieren',
     'module_callerid_search_ch_DropAnonymousCalls' => 'Anonyme Anrufe abweisen / markieren',
     'module_callerid_search_ch_Callcontrol' => 'Aktiver Eingriff in den Callfluss (gefährlich)',
+    'module_callerid_search_ch_Soundselector' => 'Ansage vor Anrufauslösung',
 ];

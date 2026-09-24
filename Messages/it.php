@@ -11,4 +11,5 @@ return [
     'module_callerid_search_ch_DropCallcenter' => 'Rifiutare / marcare call center / telemarketing',
     'module_callerid_search_ch_DropAnonymousCalls' => 'Rifiutare / marcare le chiamate anonime',
     'module_callerid_search_ch_Callcontrol' => 'Intervento attivo nel flusso delle chiamate (rischioso)',
+    'module_callerid_search_ch_Soundselector' => 'Annuncio prima del rifiuto della chiamata',
 ];
