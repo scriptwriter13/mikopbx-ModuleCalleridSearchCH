@@ -10,7 +10,11 @@ Das Modul wurde 2026 von scriptwriter13 erstellt und unter der GPL V3 veröffent
 
 # Installation
 
-**Upgrade von 1.0:** Entferne zuerst das alte Modul `CalleridSearchCH`. Die Modul-ID hat nun das von MikoPBX geforderte Präfix `Module`, sodass eine Installation über 1.0 hinaus beide Module aktiviert lässt (zwei Abfragen bei jedem Anruf und das alte Skript läuft weiter).
+**Upgrade von älteren Versionen:** Entfernen Sie zuerst das alte Modul `CalleridSearchCH`. Die Modul-ID hat nun das 
+von MikoPBX vorgeschriebene Präfix Module erhalten. Eine Installation über die alte Version führt dazu, dass beide 
+Module aktiviert bleiben, wodurch bei jedem eingehenden Anruf für jedes aktivierte Modul ein separater Lookup 
+durchgeführt wird und das alte Skript weiterhin läuft.
+
 
 1. Erstelle das Modul-Archiv (siehe unten) oder lade es von der Releases-Seite herunter.
 2. Öffne im MikoPBX-Admin-Panel **Module** → **Installiert** → **Neues Modul hochladen** und wähle die ZIP-Datei aus.

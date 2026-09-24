@@ -2,6 +2,6 @@
   "developer": "scriptwriter13",
   "moduleUniqueID": "ModuleCalleridSearchCH",
   "description": "CallerID Suche für die Schweiz",
-  "version": "1.1",
+  "version": "1.2",
   "min_pbx_version": "2025.1.1"
 }
