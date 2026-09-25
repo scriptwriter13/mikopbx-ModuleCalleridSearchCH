@@ -11,4 +11,6 @@ return [
     'module_callerid_search_ch_DropCallcenter' => 'Callcenter drop',
     'module_callerid_search_ch_DropAnonymousCalls' => 'Anonymous call drop',
     'module_callerid_search_ch_Callcontrol' => 'Active call flow intervention (risky)',
+    'module_callerid_search_ch_Soundselector' => 'Announcement before call rejection',
+    'module_callerid_search_ch_TransliterateSpecialChars' => 'Transliterate special characters for older IP phones (ASCII)',
 ];

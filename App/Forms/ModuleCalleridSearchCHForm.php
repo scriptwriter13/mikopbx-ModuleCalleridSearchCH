@@ -35,6 +35,8 @@ class ModuleCalleridSearchCHForm extends BaseForm
         parent::initialize($entity, $options);
         $this->add(new Text('api_key', ['autocomplete' => 'off']));
 
+        $this->addCheckBox('transliterate_Specialchars', intval($entity?->transliterate_Specialchars) === 1);
+
         $this->addCheckBox('dropCallcenter', intval($entity?->dropCallcenter) === 1);
         $this->addCheckBox('dropAnonymousCalls', intval($entity?->dropAnonymousCalls) === 1);
 

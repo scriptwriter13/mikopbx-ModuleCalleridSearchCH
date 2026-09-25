@@ -13,6 +13,13 @@
         {{ form.render('api_key') }}
     </div>
 
+    <div class="field">
+    <div class="ui checkbox">
+        {{ form.render('transliterate_Specialchars') }}
+        <label>{{ t._('module_callerid_search_ch_TransliterateSpecialChars') }}</label>
+    </div>
+    </div>
+
     <div class="ten wide field">
         <label>{{ t._('module_callerid_search_ch_Callcontrol') }}</label>
     </div>
@@ -26,10 +33,12 @@
             <label>{{ t._('module_callerid_search_ch_DropAnonymousCalls') }}</label>
         </div>
     </div>
-<div class="field">
-    <label>{{ form.getLabel('rejected_sound_path') }}</label>
-    {{ form.render('rejected_sound_path') }}
-</div>
+    <div class="ten wide field">
+        <label>{{ t._('module_callerid_search_ch_Soundselector') }}</label>
+    </div>
+    <div class="field">
+        {{ form.render('rejected_sound_path') }}
+    </div>
 
 
     {{ partial("partials/submitbutton", ['indexurl': '']) }}

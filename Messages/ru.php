@@ -10,4 +10,6 @@ return [
     'module_callerid_search_ch_ApiKey'         => 'Ключ API tel.search.ch',
     'module_callerid_search_ch_DropCallcenter' => 'Отклонять / помечать колл-центры / телемаркетинг',
     'module_callerid_search_ch_DropAnonymousCalls' => 'Отклонять / помечать анонимные звонки',
+    'module_callerid_search_ch_Callcontrol' => 'Активное вмешательство в поток вызовов (опасно)',
+    'module_callerid_search_ch_Soundselector' => 'Объявление перед отклонением вызова',
 ];

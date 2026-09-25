@@ -58,6 +58,10 @@ class ModuleCalleridSearchCHController extends BaseController
         $settings = ModuleCalleridSearchCH::findFirst() ?? new ModuleCalleridSearchCH();
         $settings->api_key = trim((string)$this->request->getPost('api_key', 'string', ''));
 
+$valtransliterate = $this->request->getPost('transliterate_Specialchars');
+$settings->transliterate_Specialchars = (!empty($valtransliterate) && $valtransliterate !== 'false' && $valtransliterate !== '0') ? '1' : '0';
+
+
         $valCc = $this->request->getPost('dropCallcenter');
         $settings->dropCallcenter = (!empty($valCc) && $valCc !== 'false' && $valCc !== '0') ? '1' : '0';
 
