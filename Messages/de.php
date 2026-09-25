@@ -12,4 +12,5 @@ return [
     'module_callerid_search_ch_DropAnonymousCalls' => 'Anonyme Anrufe abweisen / markieren',
     'module_callerid_search_ch_Callcontrol' => 'Aktiver Eingriff in den Callfluss (gefährlich)',
     'module_callerid_search_ch_Soundselector' => 'Ansage vor Anrufauslösung',
+    'module_callerid_search_ch_TransliterateSpecialChars'  => 'Sonderzeichen für ältere IP-Telefone umkodieren (ASCII)',
 ];

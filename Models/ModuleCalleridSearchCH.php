@@ -39,6 +39,10 @@ class ModuleCalleridSearchCH extends ModulesModelsBase
      */
     public ?string $api_key = '';
 
+    /**
+     * @Column(type="integer", default="0", nullable=true)
+     */
+    public ?string $transliterate_Specialchars = '0';
 
     /**
      * @Column(type="integer", default="0", nullable=true)

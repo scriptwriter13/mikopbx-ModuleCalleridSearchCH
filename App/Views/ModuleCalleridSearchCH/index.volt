@@ -13,6 +13,13 @@
         {{ form.render('api_key') }}
     </div>
 
+    <div class="field">
+    <div class="ui checkbox">
+        {{ form.render('transliterate_Specialchars') }}
+        <label>{{ t._('module_callerid_search_ch_TransliterateSpecialChars') }}</label>
+    </div>
+    </div>
+
     <div class="ten wide field">
         <label>{{ t._('module_callerid_search_ch_Callcontrol') }}</label>
     </div>
