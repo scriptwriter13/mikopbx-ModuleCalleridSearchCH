@@ -12,4 +12,5 @@ return [
     'module_callerid_search_ch_DropAnonymousCalls' => 'Rifiutare / marcare le chiamate anonime',
     'module_callerid_search_ch_Callcontrol' => 'Intervento attivo nel flusso delle chiamate (rischioso)',
     'module_callerid_search_ch_Soundselector' => 'Annuncio prima del rifiuto della chiamata',
+    'module_callerid_search_ch_TransliterateSpecialChars' => 'Convertire i caratteri speciali per i vecchi telefoni IP (ASCII)',
 ];

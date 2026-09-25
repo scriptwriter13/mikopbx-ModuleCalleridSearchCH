@@ -12,4 +12,5 @@ return [
     'module_callerid_search_ch_DropAnonymousCalls' => 'Отклонять / помечать анонимные звонки',
     'module_callerid_search_ch_Callcontrol' => 'Активное вмешательство в поток вызовов (опасно)',
     'module_callerid_search_ch_Soundselector' => 'Объявление перед отклонением вызова',
+    'module_callerid_search_ch_TransliterateSpecialChars' => 'Преобразование специальных символов для старых IP-телефонов (ASCII)',
 ];
