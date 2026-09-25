@@ -74,5 +74,6 @@ check(
 );
 check(null, Main::parseError(feed($person)), 'no error on a normal answer');
 check(null, Main::parseError('not xml'), 'no error on a broken answer');
-
+//check('Mueller Ae.', Main::cleanStringForPhone('Müller Ä.'),'recoding');
+//check('Mueller Ae.', Main::cleanStringForPhone2('Müller Ä.'),'recoding');
 echo 'OK' . PHP_EOL;
