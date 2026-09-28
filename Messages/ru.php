@@ -12,5 +12,10 @@ return [
     'module_callerid_search_ch_DropAnonymousCalls' => 'Отклонять / помечать анонимные звонки',
     'module_callerid_search_ch_Callcontrol' => 'Активное вмешательство в поток вызовов (опасно)',
     'module_callerid_search_ch_Soundselector' => 'Объявление перед отклонением вызова',
-    'module_callerid_search_ch_TransliterateSpecialChars' => 'Преобразование специальных символов для старых IP-телефонов (ASCII)',
+    'module_callerid_search_ch_DefaultSoundNone' => 'Без объявления (Стандарт занято)',
+    'module_callerid_search_ch_EncodingModeLabel' => 'Режим кодирования',
+    'module_callerid_search_ch_EncodingNone'     => 'Стандарт (UTF-8 / Без конвертации)',
+    'module_callerid_search_ch_TransliterateISO646CH'      => 'Принудительно использовать швейцарскую кодировку ISO-646-CH (старые швейцарские телефоны, возможно, аналоговые)',
+    'module_callerid_search_ch_TransliterateISO88591'     => 'Использовать кодировку ISO-8859-1 (Latin-1) (в основном старые цифровые телефоны)',
+    'module_callerid_search_ch_TransliterateSpecialChars' => 'Преобразовывать спецсимволы для старых IP-телефонов (ASCII ö->oe ä->ae и т.д.)',
 ];

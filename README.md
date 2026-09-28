@@ -28,11 +28,22 @@ the call is dropped.
 
 Requires MikoPBX 2025.1.1 or newer.
 
-# API key
+## API key
 
 Get a key at https://tel.search.ch/api/getkey. It is free for moderate use.
 Without a key the directory returns the name only, without city and street.
 
+## Encoding Mode (CallerID Transliteration)
+To ensure full compatibility with various IP and analog telephone models, the module provides a mutually exclusive "Encoding Mode" dropdown in the settings. You can select one of the following options:
+
+* **Standard (UTF-8 / No conversion)** (`none`)  
+  * *Description:* Passes characters through unmodified using standard UTF-8 encoding. Best suited for modern IP phones that handle international characters natively.
+* **Transliterate Special Characters** (`ascii`)  
+  * *Description:* Converts special characters and umlauts (e.g., `ö` -> `oe`, `ä` -> `ae`, `ü` -> `ue`) into standard ASCII equivalents. Ideal for older IP phones that struggle with non-ASCII characters.
+* **Force Swiss ISO-646-CH** (`iso646ch`)  
+  * *Description:* Enforces the historical Swiss ISO-646-CH character set mapping. Specifically designed for legacy Swiss telephone systems and older analog/digital end devices requiring this standard.
+* **ISO-8859-1 (Latin-1)** (`iso88591`)  
+  * *Description:* Uses the classic ISO-8859-1 Western European encoding. Recommended for older digital desk phones and legacy PBX hardware.
 
 # Privacy
 

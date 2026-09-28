@@ -12,5 +12,10 @@ return [
     'module_callerid_search_ch_DropAnonymousCalls' => 'Rejeter / marquer les appels anonymes',
     'module_callerid_search_ch_Callcontrol' => "Intervention active sur le flux d'appels (risqué)",
     'module_callerid_search_ch_Soundselector' => "Annonce avant le rejet d'appel",
-    'module_callerid_search_ch_TransliterateSpecialChars' => 'Convertir les caractères spéciaux pour les anciens téléphones IP (ASCII)',
+    'module_callerid_search_ch_DefaultSoundNone' => 'Aucune annonce (Standard Busy)',
+    'module_callerid_search_ch_EncodingModeLabel' => "Mode d'encodage",
+    'module_callerid_search_ch_EncodingNone' => 'Standard (UTF-8 / Aucune conversion)',
+    'module_callerid_search_ch_TransliterateISO646CH'      => 'Forcer le jeu de caractères suisse ISO-646-CH (anciens téléphones suisses, voire analogiques)',
+    'module_callerid_search_ch_TransliterateISO88591'     => 'Utiliser l\'encodage ISO-8859-1 (Latin-1) (principalement anciens téléphones numériques)',
+    'module_callerid_search_ch_TransliterateSpecialChars' => 'Translittérer les caractères spéciaux pour les téléphones IP obsolètes (ASCII ö->oe ä->ae etc.)',
 ];
