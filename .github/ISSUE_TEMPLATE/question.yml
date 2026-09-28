@@ -1,0 +1,32 @@
+name: Question or Support
+description: Ask a question or request help regarding the module
+title: "[Question]: "
+labels: ["question", "support"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have a question or need assistance getting set up? Please describe what you need help with below!
+  - type: input
+    id: miko-version
+    attributes:
+      label: MikoPBX Version
+      description: Which MikoPBX version are you running? (e.g., 2026.1.1)
+      placeholder: ex. 2026.1.1
+    validations:
+      required: false
+  - type: textarea
+    id: question
+    attributes:
+      label: Your Question / Goal
+      description: What would you like to know or achieve?
+      placeholder: Describe your question or setup here...
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context or Setup
+      description: Share any relevant details (e.g., phone models, configuration steps tried, or environment specifics).
+      placeholder: 'Add details here...'
+      required: false
