@@ -1,0 +1,42 @@
+name: Bug Report
+description: Report a bug or issue with the module
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting an issue! Please fill out the details below to help us investigate.
+  - type: input
+    id: miko-version
+    attributes:
+      label: MikoPBX Version
+      description: Which MikoPBX version are you running? (e.g., 2026.1.1)
+      placeholder: ex. 2026.1.1
+    validations:
+      required: true
+  - type: input
+    id: module-version
+    attributes:
+      label: ModuleCalleridSearchCH Version
+      description: Which version of the module is installed?
+      placeholder: ex. 1.2
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Issue Description
+      description: What happened and how can we reproduce the problem?
+      placeholder: Describe the issue here...
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / Error Messages
+      description: |
+        If applicable, please paste relevant MikoPBX logs or error outputs. 
+        ⚠️ **Privacy Warning:** Please make sure to redact or remove any sensitive information such as real phone numbers, names, or API keys before posting!
+      placeholder: 'Paste anonymized logs here...'
+      render: shell
