@@ -57,6 +57,93 @@ class CalleridSearchCHMain
         return preg_match('/^0[1-9]\d{8}$/', $digits) === 1 ? $digits : null;
     }
 
+    /**
+     * Konvertiert einen UTF-8 String vollständig in das Schweizer ISO646-CH Format.
+     * Berücksichtigt alle offiziellen Sonderzeichen (nach ISO-IR-86) sowie Grossbuchstaben-Fallbacks.
+     *
+     * @param string $text Der zu konvertierende UTF-8 Text.
+     * @return string Der konvertierte 7-Bit ASCII / ISO646-CH Text.
+     */
+    public static function toIso646CH(string $text): string 
+    {
+        // Das vollständige, offizielle Schweizer ISO646-CH Mapping
+        $mapping = [
+            // --- Offizielle ISO-IR-86 Spezifikation (Kleinbuchstaben) ---
+            'ù' => '#',
+            'à' => '@',
+            'é' => '[', // 0x5B wird laut Standard zu é
+            'ç' => '\\', // 0x5C wird laut Standard zu ç
+            'ê' => ']', // 0x5D wird laut Standard zu ê
+            'î' => '^', // 0x5E wird laut Standard zu î
+            'è' => '_', // 0x5F wird laut Standard zu è
+            'ô' => '`', // 0x60 wird laut Standard zu ô
+            'ä' => '{', // 0x7B wird laut Standard zu ä
+            'ö' => '|', // 0x7C wird laut Standard zu ö
+            'ü' => '}', // 0x7D wird laut Standard zu ü
+            'û' => '~', // 0x7E wird laut Standard zu û
+
+            // --- Praxiserprobte Fallbacks für Grossbuchstaben (da im Standard nicht existent) ---
+            'Ä' => '{',
+            'Ö' => '|',
+            'Ü' => '}',
+            'É' => '[',
+            'À' => '@',
+            'Ç' => '\\',
+            'È' => '_',
+            'Ù' => '#'
+        ];
+
+        // 1. Alle Schweizer Sonderzeichen ersetzen
+        $converted = strtr($text, $mapping);
+
+        // 2. Erzwungene Bereinigung: Filtert alle verbleibenden Multibyte-Reste aus dem UTF-8-String,
+        // um garantiert valides 7-Bit-ASCII für das Gateway zu liefern.
+        return iconv('UTF-8', 'ASCII//IGNORE', $converted);
+    }
+
+    /**
+     * Transliterates standard special characters (Umlaute, accents, international chars)
+     * into their ASCII equivalents (e.g., ä -> ae, é -> e) with an iconv fallback.
+     *
+     * @param string $text The input string to transliterate.
+     * @return string The cleaned and transliterated ASCII string.
+     */
+    public static function transliterateStandard(string $text): string
+    {
+        // 2. Umfassendes Mapping für Umlaute und internationale Akzente (z.B. ç, é, à, ø etc.)
+        $search = [
+            'ä', 'ö', 'ü', 'Ä', 'Ö', 'Ü', 'ß',
+            'ç', 'Ç', 'é', 'è', 'ê', 'ë', 'É', 'È', 'Ê', 'Ë',
+            'à', 'á', 'â', 'ã', 'å', 'À', 'Á', 'Â', 'Ã', 'Å',
+            'ì', 'í', 'î', 'ï', 'Ì', 'Í', 'Î', 'Ï',
+            'ò', 'ó', 'ô', 'õ', 'ø', 'Ò', 'Ó', 'Ô', 'Õ', 'Ø',
+            'ù', 'ú', 'û', 'Ù', 'Ú', 'Û',
+            'ñ', 'Ñ', 'ý', 'ÿ', 'Ý'
+        ];
+
+        $replace = [
+            'ae', 'oe', 'ue', 'Ae', 'Oe', 'Ue', 'ss',
+            'c', 'C', 'e', 'e', 'e', 'e', 'E', 'E', 'E', 'E',
+            'a', 'a', 'a', 'a', 'a', 'A', 'A', 'A', 'A', 'A',
+            'i', 'i', 'i', 'i', 'I', 'I', 'I', 'I',
+            'o', 'o', 'o', 'o', 'o', 'O', 'O', 'O', 'O', 'O',
+            'u', 'u', 'u', 'U', 'U', 'U',
+            'n', 'N', 'y', 'y', 'Y'
+        ];
+
+        $text = str_replace($search, $replace, $text);
+
+        // 3. Fallback für alle restlichen Zeichen per iconv
+        $converted = @iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $text);
+        if ($converted !== false) {
+            // Entferne eventuell übrig gebliebene Fragezeichen oder unerwünschte Symbole
+            $text = str_replace('?', '', $converted);
+        }
+
+        return $text;
+    }
+
+
 /**
  * Bereinigt einen Text (Name, Ort, Strasse etc.) universell für ältere IP-Telefone,
  * falls die Option transliterate_Specialchars aktiv ist.
@@ -64,7 +151,7 @@ class CalleridSearchCHMain
 
 public static function cleanStringForPhone(string $text): string
     {
-        if (self::shouldTransliterateToISO()){
+        if (self::shouldTransliterateToISO88591()){
           // 1. Konvertierung von UTF-8 nach ISO-8859-1 (Latin-1)
           // Das behält Umlaute (ä, ö, ü) und é, ç etc. bei, wandelt sie aber in das 8-Bit-Zeichenset um, das analoge FSK-Geräte erwarten.
           $converted = @iconv('UTF-8', 'ISO-8859-1//TRANSLIT//IGNORE', $text);
@@ -73,65 +160,18 @@ public static function cleanStringForPhone(string $text): string
           }
           return $text;
         }
+	//for older mostly analog phones which can really display special chars if encoded iso646
+	else if (self::shouldTransliterateToISO646CH()){
+	  return self::toIso646CH($text);
+	}
+        // 2. Umfassendes Mapping für Umlaute und internationale Akzente (z.B. ç, é, à, ø etc.)
         else if (self::shouldTransliterateSpecialchars()){
-          // 2. Umfassendes Mapping für Umlaute und internationale Akzente (z.B. ç, é, à, ø etc.)
-          $search = [
-              'ä', 'ö', 'ü', 'Ä', 'Ö', 'Ü', 'ß',
-              'ç', 'Ç', 'é', 'è', 'ê', 'ë', 'É', 'È', 'Ê', 'Ë',
-              'à', 'á', 'â', 'ã', 'å', 'À', 'Á', 'Â', 'Ã', 'Å',
-              'ì', 'í', 'î', 'ï', 'Ì', 'Í', 'Î', 'Ï',
-              'ò', 'ó', 'ô', 'õ', 'ø', 'Ò', 'Ó', 'Ô', 'Õ', 'Ø',
-              'ù', 'ú', 'û', 'Ù', 'Ú', 'Û',
-              'ñ', 'Ñ', 'ý', 'ÿ', 'Ý'
-          ];
-        
-          $replace = [
-              'ae', 'oe', 'ue', 'Ae', 'Oe', 'Ue', 'ss',
-              'c', 'C', 'e', 'e', 'e', 'e', 'E', 'E', 'E', 'E',
-              'a', 'a', 'a', 'a', 'a', 'A', 'A', 'A', 'A', 'A',
-              'i', 'i', 'i', 'i', 'I', 'I', 'I', 'I',
-              'o', 'o', 'o', 'o', 'o', 'O', 'O', 'O', 'O', 'O',
-              'u', 'u', 'u', 'U', 'U', 'U',
-              'n', 'N', 'y', 'y', 'Y'
-          ];
-
-          $text = str_replace($search, $replace, $text);
-
-          // 3. Fallback für alle restlichen Zeichen per iconv (optional)
-          $converted = @iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $text);
-          if ($converted !== false) {
-              // Entferne eventuell übrig gebliebene Fragezeichen oder unerwünschte Symbole
-              $text = str_replace('?', '', $converted);
-          }
-
-          return $text;
+          return self::transliterateStandard($text);
         }
         // Fallback if no recoding chosen	
 	else {
 	   return $text;
 	}
-    }
-
-public static function cleanStringForPhone2(string $text): string
-    {
-
-        // 1. Prüfen ob die Option aktiv ist
-        try {
-            if (method_exists(self::class, 'shouldTransliterateSpecialchars') && !self::shouldTransliterateSpecialchars()) {
-                return $text;
-            }
-        } catch (\Throwable $e) {
-            // Ignorieren, im Zweifel fortfahren
-        }
-
-        // 2. Konvertierung von UTF-8 nach ISO-8859-1 (Latin-1)
-        // Das behält Umlaute (ä, ö, ü) und é, ç etc. bei, wandelt sie aber in das 8-Bit-Zeichenset um, das analoge FSK-Geräte erwarten.
-        $converted = @iconv('UTF-8', 'ISO-8859-1//TRANSLIT//IGNORE', $text);
-        if ($converted !== false) {
-            $text = $converted;
-        }
-
-        return $text;
     }
 
 
@@ -272,7 +312,7 @@ public static function cleanStringForPhone2(string $text): string
      * @return array Associative array of [filename => display_label]
      */
      public static function getAvailableCustomSounds(): array {
-        $options = ['' => '-- Keine Ansage (Standard: Busy) --'];
+        //$options = ['' => '-- Keine Ansage (Standard: Busy) --'];
         
         try {
             if (class_exists(SoundFiles::class)) {
@@ -428,26 +468,41 @@ public static function cleanStringForPhone2(string $text): string
         return ModuleCalleridSearchCH::findFirst()?->dropAnonymousCalls === '1';
     }
 
-   /**
-     * Checks whether transliteration of special characters is enabled in the module settings.
-     *
-     * @return bool true when transliterate_Specialchars is enabled ('1')
+
+    /**
+     * Returns the currently selected encoding mode.
+     * 
+     * @return string 'none', 'ascii', 'iso646ch', or 'iso88591'
+     */
+    public static function getSelectedEncodingMode(): string
+    {
+        $settings = ModuleCalleridSearchCH::findFirst();
+        return $settings?->encoding_mode ?? 'none';
+    }
+    /**
+     * Checks whether transliteration of special characters (ASCII) is active.
      */
     public static function shouldTransliterateSpecialchars(): bool
     {
-        return ModuleCalleridSearchCH::findFirst()?->transliterate_Specialchars === '1';
+        return self::getEncodingMode() === 'ascii';
     }
-   /**
-     * Checks whether transliteration of special characters is enabled in the module settings.
-     *
-     * @return bool true when transliterate_Specialchars is enabled ('1')
+
+    /**
+     * Checks whether ISO-8859-1 (Latin-1) encoding is active.
      */
-    public static function shouldTransliterateToISO(): bool
+    public static function shouldTransliterateToISO88591(): bool
     {
-        //TODO manually disabled because my phones do not accept iso and will next implemented 
-        //return ModuleCalleridSearchCH::findFirst()?->transliterate_ISO88591 === '1';
-        return false;
+        return self::getEncodingMode() === 'iso88591';
     }
+
+    /**
+     * Checks whether Swiss ISO-646-CH encoding is active.
+     */
+    public static function shouldTransliterateToISO646CH(): bool
+    {
+        return self::getEncodingMode() === 'iso646ch';
+    }
+
 
 
 }

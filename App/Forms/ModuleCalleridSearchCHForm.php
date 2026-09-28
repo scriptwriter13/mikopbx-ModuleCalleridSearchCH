@@ -35,16 +35,43 @@ class ModuleCalleridSearchCHForm extends BaseForm
         parent::initialize($entity, $options);
         $this->add(new Text('api_key', ['autocomplete' => 'off']));
 
-        $this->addCheckBox('transliterate_Specialchars', intval($entity?->transliterate_Specialchars) === 1);
+
+        // Sicheren Zugriff auf den MikoPBX Translation Service holen
+        $translation = null;
+        if ($this->di && $this->di->has('translation')) {
+            $translation = $this->di->get('translation');
+        }
+        // Hilfsfunktion für saubere Übersetzung mit Text-Fallback
+        $t = static function(string $key, string $fallback) use ($translation): string {
+            if ($translation !== null && method_exists($translation, '_')) {
+                return $translation->_($key);
+            }
+            return $fallback;
+        };
+        // Select-Box für das Encoding-Mode (mutually exclusive)
+        $encodingSelect = new Select('encoding_mode', [
+            'none'     => $t('module_callerid_search_ch_EncodingNone', ''),
+            'ascii'    => $t('module_callerid_search_ch_TransliterateSpecialChars', ''),
+            'iso646ch' => $t('module_callerid_search_ch_TransliterateISO646CH', ''),
+            'iso88591' => $t('module_callerid_search_ch_TransliterateISO88591', '')
+        ], [
+            'class' => 'form-control select2'
+        ]);
+	$encodingSelect->setLabel($t('module_callerid_search_ch_EncodingModeLabel',''));
+        $this->add($encodingSelect);
+
+
 
         $this->addCheckBox('dropCallcenter', intval($entity?->dropCallcenter) === 1);
         $this->addCheckBox('dropAnonymousCalls', intval($entity?->dropAnonymousCalls) === 1);
 
         $sounds = CalleridSearchCHMain::getAvailableCustomSounds();
+        $sounds[''] = $t('module_callerid_search_ch_DefaultSoundNone', '');
         $soundSelect = new Select('rejected_sound_path', $sounds, [
             'class' => 'form-control select2'
         ]);
-        $soundSelect->setLabel('Ansage bei Callcenter-Abweisung');
+        //$soundSelect->setLabel($t('module_callerid_search_ch_CallcenterSoundLabel', ''));
+        //$soundSelect->setLabel('Ansage bei Callcenter-Abweisung');
         $this->add($soundSelect);
 
     }

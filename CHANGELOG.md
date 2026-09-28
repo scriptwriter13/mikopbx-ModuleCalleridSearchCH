@@ -1,6 +1,11 @@
 # Changelog
 
 MikoPBX module for callerid resolution via suisse directory api of https://tel.search.ch
+## [X.X.X] - not yet released
+- added different configurable methodes for encoding special chars 
+
+## [1.2.1] -
+- fix support for special chars
 
 ## [1.2.0] - 2026-09-24
 ### Added

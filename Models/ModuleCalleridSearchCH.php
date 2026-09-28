@@ -39,10 +39,6 @@ class ModuleCalleridSearchCH extends ModulesModelsBase
      */
     public ?string $api_key = '';
 
-    /**
-     * @Column(type="integer", default="0", nullable=true)
-     */
-    public ?string $transliterate_Specialchars = '0';
 
     /**
      * @Column(type="integer", default="0", nullable=true)
@@ -58,6 +54,12 @@ class ModuleCalleridSearchCH extends ModulesModelsBase
      * @Column(type="string", nullable=true)
      */
     public ?string $rejected_sound_path = '';
+
+   /**
+     * @Column(type="string", default="none", nullable=true)
+     */
+    public ?string $encoding_mode = 'none';
+
 
     public function initialize(): void
     {

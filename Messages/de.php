@@ -12,5 +12,10 @@ return [
     'module_callerid_search_ch_DropAnonymousCalls' => 'Anonyme Anrufe abweisen / markieren',
     'module_callerid_search_ch_Callcontrol' => 'Aktiver Eingriff in den Callfluss (gefährlich)',
     'module_callerid_search_ch_Soundselector' => 'Ansage vor Anrufauslösung',
-    'module_callerid_search_ch_TransliterateSpecialChars'  => 'Sonderzeichen für ältere IP-Telefone umkodieren (ASCII)',
+    'module_callerid_search_ch_DefaultSoundNone' => 'Keine Ansage (Standard Busy)',
+    'module_callerid_search_ch_EncodingModeLabel' => 'Kodierungs-Modus',
+    'module_callerid_search_ch_EncodingNone' => 'Standard (UTF-8 / Keine Konvertierung)',
+    'module_callerid_search_ch_TransliterateISO646CH'      => 'Schweizer ISO-646-CH Zeichensatz erzwingen (ältere Telefone CH evtl. analoge)',
+    'module_callerid_search_ch_TransliterateISO88591'     => 'ISO-8859-1 (Latin-1) Kodierung verwenden (meist ältere Digitaltelefone)',
+    'module_callerid_search_ch_TransliterateSpecialChars'  => 'Sonderzeichen für ältere IP-Telefone umkodieren (ASCII ö->oe ä->ae usw.)',
 ];

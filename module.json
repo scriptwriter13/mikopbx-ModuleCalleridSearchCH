@@ -3,5 +3,17 @@
   "moduleUniqueID": "ModuleCalleridSearchCH",
   "description": "CallerID Suche für die Schweiz",
   "version": "1.2",
-  "min_pbx_version": "2025.1.1"
+  "min_pbx_version": "2025.1.1",
+  "wiki_links": {
+    "de": {"https://github.com/scriptwriter13/mikopbx-ModuleCalleridSearchCH/wiki/Home-DE": "https://github.com/scriptwriter13/mikopbx-ModuleCalleridSearchCH/wiki/Home-DE"},
+    "it": {"https://github.com/scriptwriter13/mikopbx-ModuleCalleridSearchCH/wiki/Home-IT": "https://github.com/scriptwriter13/mikopbx-ModuleCalleridSearchCH/wiki/Home-IT"},
+    "fr": {"https://github.com/scriptwriter13/mikopbx-ModuleCalleridSearchCH/wiki/Home-FR": "https://github.com/scriptwriter13/mikopbx-ModuleCalleridSearchCH/wiki/Home-FR"},
+    "ru": {"https://github.com/scriptwriter13/mikopbx-ModuleCalleridSearchCH/wiki/Home-RU": "https://github.com/scriptwriter13/mikopbx-ModuleCalleridSearchCH/wiki/Home-RU"},
+    "en": {"https://github.com/scriptwriter13/mikopbx-ModuleCalleridSearchCH/wiki/Home-EN": "https://github.com/scriptwriter13/mikopbx-ModuleCalleridSearchCH/wiki/Home-EN"}
+  },
+  "release_settings": {
+    "publish_release": true,
+    "changelog_enabled": true,
+    "create_github_release": true
+  }
 }

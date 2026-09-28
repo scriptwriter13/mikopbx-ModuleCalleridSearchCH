@@ -25,11 +25,22 @@ durchgeführt wird und das alte Skript weiterhin läuft.
 
 Erfordert MikoPBX 2025.1.1 oder neuer.
 
-# API-Key
+## API-Key
 
 Einen Schlüssel erhältst du unter https://tel.search.ch/api/getkey. Bei moderater Nutzung ist er kostenlos.
 Ohne Schlüssel liefert das Verzeichnis nur den Namen, ohne Ort und Strasse.
 
+### Encoding Mode (CallerID Transliteration)
+Um die volle Kompatibilität mit verschiedenen IP- und analogen Telefonmodellen zu gewährleisten, bietet das Modul ein exklusives „Encoding Mode“-Dropdown in den Einstellungen. Sie können zwischen folgenden Optionen wählen:
+
+* **Standard (UTF-8 / Keine Konvertierung)** (`none`)  
+  * *Beschreibung:* Überträgt Zeichen unverändert im Standard-UTF-8-Format. Am besten geeignet für moderne IP-Phones, die Unicode-Zeichen nativ unterstützen.
+* **Sonderzeichen umkodieren** (`ascii`)  
+  * *Beschreibung:* Wandelt Sonderzeichen und Umlaute (z. B. `ö` -> `oe`, `ä` -> `ae`) in ASCII-Zeichen um. Ideal für ältere IP-Telefone mit eingeschränkter Zeichendarstellung.
+* **Schweizer ISO-646-CH erzwingen** (`iso646ch`)  
+  * *Beschreibung:* Erzwingt den historischen Schweizer ISO-646-CH Zeichensatz. Speziell für ältere Schweizer Telefonanlagen und kompatible Endgeräte.
+* **ISO-8859-1 (Latin-1)** (`iso88591`)  
+  * *Beschreibung:* Verwendet die klassische ISO-8859-1 Westeuropa-Kodierung. Empfohlen für ältere digitale Systemtelefone und Legacy-Hardware.
 
 # Datenschutz
 
