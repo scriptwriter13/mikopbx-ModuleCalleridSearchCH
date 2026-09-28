@@ -29,4 +29,5 @@ body:
       label: Additional Context or Setup
       description: Share any relevant details (e.g., phone models, configuration steps tried, or environment specifics).
       placeholder: 'Add details here...'
+    validations:
       required: false
