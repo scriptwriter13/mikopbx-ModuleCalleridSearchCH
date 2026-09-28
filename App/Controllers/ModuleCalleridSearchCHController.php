@@ -59,8 +59,8 @@ class ModuleCalleridSearchCHController extends BaseController
         $settings->api_key = trim((string)$this->request->getPost('api_key', 'string', ''));
 
 
-$mode = $this->request->getPost('encoding_mode');
-$settings->encoding_mode = in_array($mode, ['none', 'ascii', 'iso646ch', 'iso88591'], true) ? $mode : 'none';
+	$mode = $this->request->getPost('encoding_mode');
+	$settings->encoding_mode = in_array($mode, ['none', 'ascii', 'iso646ch', 'iso88591'], true) ? $mode : 'none';
 
 
         $valCc = $this->request->getPost('dropCallcenter');

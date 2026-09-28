@@ -57,49 +57,49 @@ class CalleridSearchCHMain
         return preg_match('/^0[1-9]\d{8}$/', $digits) === 1 ? $digits : null;
     }
 
-/**
- * Konvertiert einen UTF-8 String vollständig in das Schweizer ISO646-CH Format.
- * Berücksichtigt alle offiziellen Sonderzeichen (nach ISO-IR-86) sowie Grossbuchstaben-Fallbacks.
- *
- * @param string $text Der zu konvertierende UTF-8 Text.
- * @return string Der konvertierte 7-Bit ASCII / ISO646-CH Text.
- */
-public static function toIso646CH(string $text): string 
-{
-    // Das vollständige, offizielle Schweizer ISO646-CH Mapping
-    $mapping = [
-        // --- Offizielle ISO-IR-86 Spezifikation (Kleinbuchstaben) ---
-        'ù' => '#',
-        'à' => '@',
-        'é' => '[', // 0x5B wird laut Standard zu é
-        'ç' => '\\', // 0x5C wird laut Standard zu ç
-        'ê' => ']', // 0x5D wird laut Standard zu ê
-        'î' => '^', // 0x5E wird laut Standard zu î
-        'è' => '_', // 0x5F wird laut Standard zu è
-        'ô' => '`', // 0x60 wird laut Standard zu ô
-        'ä' => '{', // 0x7B wird laut Standard zu ä
-        'ö' => '|', // 0x7C wird laut Standard zu ö
-        'ü' => '}', // 0x7D wird laut Standard zu ü
-        'û' => '~', // 0x7E wird laut Standard zu û
+    /**
+     * Konvertiert einen UTF-8 String vollständig in das Schweizer ISO646-CH Format.
+     * Berücksichtigt alle offiziellen Sonderzeichen (nach ISO-IR-86) sowie Grossbuchstaben-Fallbacks.
+     *
+     * @param string $text Der zu konvertierende UTF-8 Text.
+     * @return string Der konvertierte 7-Bit ASCII / ISO646-CH Text.
+     */
+    public static function toIso646CH(string $text): string 
+    {
+        // Das vollständige, offizielle Schweizer ISO646-CH Mapping
+        $mapping = [
+            // --- Offizielle ISO-IR-86 Spezifikation (Kleinbuchstaben) ---
+            'ù' => '#',
+            'à' => '@',
+            'é' => '[', // 0x5B wird laut Standard zu é
+            'ç' => '\\', // 0x5C wird laut Standard zu ç
+            'ê' => ']', // 0x5D wird laut Standard zu ê
+            'î' => '^', // 0x5E wird laut Standard zu î
+            'è' => '_', // 0x5F wird laut Standard zu è
+            'ô' => '`', // 0x60 wird laut Standard zu ô
+            'ä' => '{', // 0x7B wird laut Standard zu ä
+            'ö' => '|', // 0x7C wird laut Standard zu ö
+            'ü' => '}', // 0x7D wird laut Standard zu ü
+            'û' => '~', // 0x7E wird laut Standard zu û
 
-        // --- Praxiserprobte Fallbacks für Grossbuchstaben (da im Standard nicht existent) ---
-        'Ä' => '{',
-        'Ö' => '|',
-        'Ü' => '}',
-        'É' => '[',
-        'À' => '@',
-        'Ç' => '\\',
-        'È' => '_',
-        'Ù' => '#'
-    ];
+            // --- Praxiserprobte Fallbacks für Grossbuchstaben (da im Standard nicht existent) ---
+            'Ä' => '{',
+            'Ö' => '|',
+            'Ü' => '}',
+            'É' => '[',
+            'À' => '@',
+            'Ç' => '\\',
+            'È' => '_',
+            'Ù' => '#'
+        ];
 
-    // 1. Alle Schweizer Sonderzeichen ersetzen
-    $converted = strtr($text, $mapping);
+        // 1. Alle Schweizer Sonderzeichen ersetzen
+        $converted = strtr($text, $mapping);
 
-    // 2. Erzwungene Bereinigung: Filtert alle verbleibenden Multibyte-Reste aus dem UTF-8-String,
-    // um garantiert valides 7-Bit-ASCII für das Gateway zu liefern.
-    return iconv('UTF-8', 'ASCII//IGNORE', $converted);
-}
+        // 2. Erzwungene Bereinigung: Filtert alle verbleibenden Multibyte-Reste aus dem UTF-8-String,
+        // um garantiert valides 7-Bit-ASCII für das Gateway zu liefern.
+        return iconv('UTF-8', 'ASCII//IGNORE', $converted);
+    }
 
     /**
      * Transliterates standard special characters (Umlaute, accents, international chars)
@@ -172,28 +172,6 @@ public static function cleanStringForPhone(string $text): string
 	else {
 	   return $text;
 	}
-    }
-
-public static function cleanStringForPhone2(string $text): string
-    {
-
-        // 1. Prüfen ob die Option aktiv ist
-        try {
-            if (method_exists(self::class, 'shouldTransliterateSpecialchars') && !self::shouldTransliterateSpecialchars()) {
-                return $text;
-            }
-        } catch (\Throwable $e) {
-            // Ignorieren, im Zweifel fortfahren
-        }
-
-        // 2. Konvertierung von UTF-8 nach ISO-8859-1 (Latin-1)
-        // Das behält Umlaute (ä, ö, ü) und é, ç etc. bei, wandelt sie aber in das 8-Bit-Zeichenset um, das analoge FSK-Geräte erwarten.
-        $converted = @iconv('UTF-8', 'ISO-8859-1//TRANSLIT//IGNORE', $text);
-        if ($converted !== false) {
-            $text = $converted;
-        }
-
-        return $text;
     }
 
 
