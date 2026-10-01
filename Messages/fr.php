@@ -16,6 +16,7 @@ return [
     'module_callerid_search_ch_EncodingModeLabel' => "Mode d'encodage",
     'module_callerid_search_ch_EncodingNone' => 'Standard (UTF-8 / Aucune conversion)',
     'module_callerid_search_ch_TransliterateISO646CH'      => 'Forcer le jeu de caractères suisse ISO-646-CH (anciens téléphones suisses, voire analogiques)',
-    'module_callerid_search_ch_TransliterateISO88591'     => 'Utiliser l\'encodage ISO-8859-1 (Latin-1) (principalement anciens téléphones numériques)',
+    'module_callerid_search_ch_TransliterateISO88591'     => "Utiliser l'encodage ISO-8859-1 (Latin-1) (principalement anciens téléphones numériques)",
+    'module_callerid_search_ch_TransliterateGSM0338' => "Utiliser l'encodage GSM-0338 (principalement pour les anciens téléphones)",
     'module_callerid_search_ch_TransliterateSpecialChars' => 'Translittérer les caractères spéciaux pour les téléphones IP obsolètes (ASCII ö->oe ä->ae etc.)',
 ];

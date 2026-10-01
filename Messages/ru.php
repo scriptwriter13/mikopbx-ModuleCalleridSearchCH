@@ -17,5 +17,6 @@ return [
     'module_callerid_search_ch_EncodingNone'     => 'Стандарт (UTF-8 / Без конвертации)',
     'module_callerid_search_ch_TransliterateISO646CH'      => 'Принудительно использовать швейцарскую кодировку ISO-646-CH (старые швейцарские телефоны, возможно, аналоговые)',
     'module_callerid_search_ch_TransliterateISO88591'     => 'Использовать кодировку ISO-8859-1 (Latin-1) (в основном старые цифровые телефоны)',
+    'module_callerid_search_ch_TransliterateGSM0338' => 'Использовать кодировку GSM-0338 (в основном для старых телефонов)',
     'module_callerid_search_ch_TransliterateSpecialChars' => 'Преобразовывать спецсимволы для старых IP-телефонов (ASCII ö->oe ä->ae и т.д.)',
 ];
