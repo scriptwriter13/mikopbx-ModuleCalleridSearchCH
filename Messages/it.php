@@ -17,5 +17,6 @@ return [
     'module_callerid_search_ch_EncodingNone' => 'Standard (UTF-8 / Nessuna conversione)',
     'module_callerid_search_ch_TransliterateISO646CH'      => 'Forzare il set di caratteri svizzero ISO-646-CH (telefoni svizzeri più vecchi, eventualmente analogici)',
     'module_callerid_search_ch_TransliterateISO88591'     => 'Utilizzare la codifica ISO-8859-1 (Latin-1) (principalmente telefoni digitali più vecchi)',
+    'module_callerid_search_ch_TransliterateGSM0338' => 'Usa la codifica GSM-0338 (principalmente telefoni più vecchi)',
     'module_callerid_search_ch_TransliterateSpecialChars' => 'Riconvertire i caratteri speciali per i vecchi telefoni IP (ASCII ö->oe ä->ae ecc.)',
 ];

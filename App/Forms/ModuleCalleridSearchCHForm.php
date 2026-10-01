@@ -53,7 +53,8 @@ class ModuleCalleridSearchCHForm extends BaseForm
             'none'     => $t('module_callerid_search_ch_EncodingNone', ''),
             'ascii'    => $t('module_callerid_search_ch_TransliterateSpecialChars', ''),
             'iso646ch' => $t('module_callerid_search_ch_TransliterateISO646CH', ''),
-            'iso88591' => $t('module_callerid_search_ch_TransliterateISO88591', '')
+            'iso88591' => $t('module_callerid_search_ch_TransliterateISO88591', ''),
+            'gsm0338' => $t('module_callerid_search_ch_TransliterateGSM0338', '')
         ], [
             'class' => 'form-control select2'
         ]);
